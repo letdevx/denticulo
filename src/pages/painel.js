@@ -1,8 +1,9 @@
+import Sidebar from "../components/sidebar/sidebar.js";
+
 function Painel() {
+
     return(
-        <div>
-            <h1>painel</h1>
-        </div>
+        <Sidebar/>
     );
 }
 export default Painel;

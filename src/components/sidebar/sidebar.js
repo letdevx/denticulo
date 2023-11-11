@@ -13,21 +13,11 @@ function Sidebar(){
               </div>  
               <ul className="nav flex-column">
                 <li className="nav-item">
-                  <a className="nav-link active" href="#">
-                    Item 1
-                  </a>
+                  <Link to="agendameto">
+                    <span className="mdi mdi-calendar-check"></span>
+                    <text>Agendamento</text>
+                  </Link>  
                 </li>
-                <li className="nav-item">
-                  <a className="nav-link" href="#">
-                    Item 2
-                  </a>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link" href="#">
-                    Item 3
-                  </a>
-                </li>
-                {/* Adicione mais itens conforme necessário */}
               </ul>
             </div>
           </nav>
