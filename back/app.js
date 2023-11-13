@@ -5,6 +5,7 @@ require('./database');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var pacienteRouter = require('./routes/paciente');
 
 var app = express();
 
@@ -15,5 +16,6 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/pacientes', pacienteRouter);
 
 module.exports = app;
