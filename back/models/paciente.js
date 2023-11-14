@@ -2,6 +2,10 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const Paciente = new Schema({
+    _id: {
+        type: String,
+        required: [true, 'Id é obrigatório'],
+    },
     nome: {
         type: String,
         required: [true, 'Nome é obrigatório'],
@@ -10,38 +14,10 @@ const Paciente = new Schema({
         type: String,
         required: [true, 'E-mail é obrigatório'],
     },
-    // telefone: {
-    //     type: String,
-    //     required: true,
-    // },
-    // dataNascimento: {
-    //     type: String,
-    //     required: true,
-    // },
-    // documento: {
-    //     tipo: {
-    //         type: String,
-    //         enum: ['individual', 'corporation'],
-    //         required: true,
-    //     },
-    //     numero: {
-    //         type: String,
-    //         required: true,
-    //     }
-    // },
-    // endereco: {
-    //     cidade: String,
-    //     uf: String,
-    //     cep: String,
-    //     numero: String,
-    //     rua: String,
-    // },
-
-    // dataCadastro: {
-    //     type: Date,
-    //     default: Date.now,
-    // },
-
+    telefone: {
+        type: String,
+        required: true,
+    }
 });
 
 module.exports = mongoose.model('paciente', Paciente);     

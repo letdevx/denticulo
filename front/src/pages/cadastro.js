@@ -2,9 +2,11 @@ import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Dente from "../assets/gravura.png";
+import RestApiService from '../services/restApiService';
 import "./cadastro.css";
 
 const Cadastro = () => {
+    const api = new RestApiService('http://localhost:8000/pacientes');
     const [inputs, setInputs] = useState({});
 
     const handleChange = (event) => {
@@ -13,8 +15,9 @@ const Cadastro = () => {
         setInputs(values => ({ ...values, [name]: value }))
     }
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
+        await api.updateAsync(inputs._id, inputs);
         alert(`Muito bem ${inputs.nome}`);
     }
 
@@ -49,7 +52,7 @@ const Cadastro = () => {
 
                         <Form.Group className="mb-3" controlId="formCpf">
                             <Form.Label>CPF</Form.Label>
-                            <Form.Control type="text" name="cpf" value={inputs.cpf || ""} placeholder="CPF" onChange={handleChange} />
+                            <Form.Control type="text" name="_id" value={inputs._id || ""} placeholder="CPF" onChange={handleChange} />
                         </Form.Group>
 
                         <Button variant="primary" type="submit">
