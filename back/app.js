@@ -6,7 +6,8 @@ require('./database');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var pacienteRouter = require('./routes/paciente');
-var dentistaRouter = require('./routes/paciente')
+var dentistaRouter = require('./routes/paciente');
+var especialidadesRouter = require('./routes/especialidades');
 
 var app = express();
 
@@ -19,6 +20,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/pacientes', pacienteRouter);
 app.use('/dentistas', dentistaRouter);
+app.use('/especialidades', especialidadesRouter);
 
 
 module.exports = app;
