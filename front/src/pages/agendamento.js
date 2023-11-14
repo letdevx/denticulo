@@ -1,6 +1,14 @@
 import ModalConfirmacao from '../components/modal/modalConfirmacao';
+import { useState } from 'react';
 
 function Agendamento() {
+    const [dentistas, setDentistas] = useState([ 'petruciculo','maricas' ]);
+    const [dentista, setDentista] = useState(dentistas[0]);
+
+    const handleChange = (event) => {
+        setDentista(event.target.value);
+    };
+    // TODO: setDentistas(valorDoBanco)
     
     return (
         <>
@@ -16,10 +24,8 @@ function Agendamento() {
                             <h2>Selecione o seu Dentista:</h2>
                         </div>
                         <div className="seletor">
-                            <select class="form-select" aria-label="Default select example">
-                                <option selected>Selecione o seu Dentista</option>
-                                <option value="1">Dr.petrucio</option>
-                                <option value="2">Dr. marisa</option>
+                            <select class="form-select" aria-label="Default select example" value={dentista} onChange={handleChange}>
+                                {dentistas.map((d, _) => (<option value={d}>{d}</option>))}
                             </select>
                             <br></br>
                             <br></br>
