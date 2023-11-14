@@ -16,12 +16,12 @@ body{
 .bg-primary{ 
     background-color: var(--primary) !important;
 }   
-.btn-secondary,
-.btn-secondary:focus,
-.btn-secondary:active,
-.btn-secondary:disabled,
-.btn-secondary:focus,
-.btn-secondary:hover{
+.btn-primary ,
+.btn-primary :focus,
+.btn-primary :active,
+.btn-primary :disabled,
+.btn-primary :focus,
+.btn-primary :hover{
     background-color: var(--secondary)!important;
     border-color: var(--secondary)
 }
@@ -30,6 +30,9 @@ body{
 }
 .ilustracao{
     height: 350px;
+    border-left: 20px;
+    border-right: 20px;
+    margin-left: 200px;
 } 
 .logo{
     height: 100px;

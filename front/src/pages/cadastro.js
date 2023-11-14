@@ -42,7 +42,7 @@ const Cadastro = () => {
 
                         <Form.Group className="mb-3" controlId="formEmail">
                             <Form.Label>Email</Form.Label>
-                            <Form.Control type="email" name="email" value={inputs.email || ""} placeholder="Email" onChange={handleChange}/>
+                            <Form.Control type="email" name="email" value={inputs.email || ""} placeholder="seu@melhoremail.com.br" onChange={handleChange}/>
                         </Form.Group>
 
                         <Form.Group className="mb-3" controlId="formTelefone">
@@ -52,7 +52,7 @@ const Cadastro = () => {
 
                         <Form.Group className="mb-3" controlId="formCpf">
                             <Form.Label>CPF</Form.Label>
-                            <Form.Control type="text" name="_id" value={inputs._id || ""} placeholder="CPF" onChange={handleChange} />
+                            <Form.Control type="text" name="_id" value={inputs._id || ""} placeholder="000.000.000-00" onChange={handleChange} />
                         </Form.Group>
 
                         <Button variant="primary" type="submit">
