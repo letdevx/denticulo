@@ -1,14 +1,24 @@
 import ModalConfirmacao from '../components/modal/modalConfirmacao';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import RestApiService from '../services/restApiService';
 
 function Agendamento() {
-    const [dentistas, setDentistas] = useState([ 'petruciculo','maricas' ]);
-    const [dentista, setDentista] = useState(dentistas[0]);
+    const [dentistas, setDentistas] = useState([]);
+    const [dentista, setDentista] = useState({});
+
+    useEffect(() => {
+        async function getAllDentistas() {
+            const api = new RestApiService('http://localhost:8000/dentistas');
+            let response = await api.getAllAsync();
+            setDentistas(response);
+            setDentista(response[0]);
+        }
+        getAllDentistas();
+    }, []);
 
     const handleChange = (event) => {
         setDentista(event.target.value);
     };
-    // TODO: setDentistas(valorDoBanco)
     
     return (
         <>
@@ -24,8 +34,8 @@ function Agendamento() {
                             <h2>Selecione o seu Dentista:</h2>
                         </div>
                         <div className="seletor">
-                            <select class="form-select" aria-label="Default select example" value={dentista} onChange={handleChange}>
-                                {dentistas.map((d, _) => (<option value={d}>{d}</option>))}
+                            <select className="form-select" aria-label="Default select example" value={dentista._id || ""} onChange={handleChange}>
+                                {dentistas.map((d, i) => (<option key={i} value={d._id}>{d.nome}</option>))}
                             </select>
                             <br></br>
                             <br></br>
@@ -36,8 +46,8 @@ function Agendamento() {
                     <div>
                         <h2>Escolha seu procedimento:</h2>
                     </div>
-                    <select class="form-select" aria-label="Default select example">
-                        <option selected>consulta</option>
+                    <select className="form-select" aria-label="Default select example">
+                        <option value="0">consulta</option>
                         <option value="1">One</option>
                         <option value="2">Two</option>
                         <option value="3">Three</option>
