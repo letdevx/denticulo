@@ -6,32 +6,32 @@ const colaborador = new Schema({
         type: String,
         required: [true, 'Nome é obrigatório'],
     },
-    foto: {
-        type: String,
-        required : true
-        
-    },
     email: {required: [true, 'E-mail é obrigatório'],
     },
-    senha: {
-        type: String,
-        default: true,
+    // senha: {
+    //     type: String,
+    //     default: true,
 
-    }, 
-    telefone: String,
+    // }, 
+    // foto: {
+    //     type: String,
+    //     required : true
+        
+    // },
+    // telefone: String,
     
-    dataNascimento: {
-        type: String,
-        required: true
-    },
-    recipientId:{
-        type: String,
-        required: true
-    }, 
-    dataCadastro:{
-    type: Date,
-    default: Date.now,
-    },
+    // dataNascimento: {
+    //     type: String,
+    //     required: true
+    // },
+    // recipientId:{
+    //     type: String,
+    //     required: true
+    // }, 
+    // dataCadastro:{
+    // type: Date,
+    // default: Date.now,
+    // },
 
 }); 
 
