@@ -6,6 +6,9 @@ function Agendamento() {
     const [dentistas, setDentistas] = useState([]);
     const [dentista, setDentista] = useState({});
 
+    const [especialidades, setEspecialidades] = useState([]);
+    const [especialidade, setEspecialidade] = useState({});
+    
     useEffect(() => {
         async function getAllDentistas() {
             const api = new RestApiService('http://localhost:8000/dentistas');
@@ -13,13 +16,25 @@ function Agendamento() {
             setDentistas(response);
             setDentista(response[0]);
         }
+        async function getAllEspecialidades(){
+            const api = new RestApiService('http://localhost:8000/especialidades');
+            let response = await api.getAllAsync();
+            setEspecialidades(response);
+            setEspecialidade(response[0]);
+        }
         getAllDentistas();
+        getAllEspecialidades();
     }, []);
 
     const handleChange = (event) => {
         setDentista(event.target.value);
     };
-    
+
+    // funcao que faz a mmudanca na entidade especialidade
+    const tratarMudancaEspecialidade =(event) => {
+        setEspecialidade(event.target.value);
+    };
+
     return (
         <>
             <div className="col p-5 overflow-auto h-100">
@@ -46,11 +61,8 @@ function Agendamento() {
                     <div>
                         <h2>Escolha seu procedimento:</h2>
                     </div>
-                    <select className="form-select" aria-label="Default select example">
-                        <option value="0">consulta</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+                    <select className="form-select" aria-label="Default select example" value={especialidade._id || ""} onChange={tratarMudancaEspecialidade}>
+                        {especialidades.map((e, i) => (<option key={i} value={e._id}>{e.descricao}</option>))}    
                     </select>
                     <br></br>
                 </div>
