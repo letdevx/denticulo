@@ -29,25 +29,25 @@ router.get('/:id', async (req, res) => {
 });
 
 // Endpoint para criar um novo paciente
-router.post('/', async (req, res) => {
-  const paciente = new Paciente({
-    nome: req.body.nome,
-    email: req.body.email,
-    // Outros campos do paciente
-  });
+// router.post('/', async (req, res) => {
+//   const paciente = new Paciente({
+//     nome: req.body.nome,
+//     email: req.body.email,
+//     // Outros campos do paciente
+//   });
 
-  try {
-    const novoPaciente = await paciente.save();
-    res.status(201).json(novoPaciente);
-  } catch (error) {
-    res.status(400).json({ message: error.message });
-  }
-});
+//   try {
+//     const novoPaciente = await paciente.save();
+//     res.status(201).json(novoPaciente);
+//   } catch (error) {
+//     res.status(400).json({ message: error.message });
+//   }
+// });
 
 // Endpoint para atualizar um paciente por ID
 router.put('/:id', async (req, res) => {
   try {
-    const paciente = await Paciente.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    const paciente = await Paciente.findByIdAndUpdate(req.params.id, req.body, { new: true, upsert: true });
     if (paciente) {
       res.json(paciente);
     } else {
