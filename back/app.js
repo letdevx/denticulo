@@ -3,8 +3,6 @@ var logger = require('morgan');
 var cors = require('cors');
 require('./database');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
 var pacienteRouter = require('./routes/paciente');
 var dentistaRouter = require('./routes/paciente');
 var especialidadesRouter = require('./routes/especialidades');
@@ -17,12 +15,10 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
 app.use('/pacientes', pacienteRouter);
 app.use('/dentistas', dentistaRouter);
+app.use('/dentistas/:dentistaId/agendamentos', agendamentosRouter);
 app.use('/especialidades', especialidadesRouter);
-app.use('/agendamentos', agendamentosRouter);
 
 
 module.exports = app;

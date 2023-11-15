@@ -1,66 +1,105 @@
 const express = require('express');
 const router = express.Router();
-const Agendamento = require('../models/agendamento'); // Importe o modelo do Agendamento
+const Agendamento = require('../models/agendamento'); // Importando o modelo de Agendamento
 
-// GET - Obter todos os agendamentos
+// Obtém todos os agendamentos de um dentista específico
 router.get('/', async (req, res) => {
   try {
-    const agendamentos = await Agendamento.find();
+    const { dentistaId } = req.params;
+    const agendamentos = await Agendamento.find({ id_dentista: dentistaId });
+      // .populate('id_especialidade')
+      // .populate('id_paciente')
+      // .populate('id_dentista');
     res.json(agendamentos);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 });
 
-// GET - Obter um agendamento por ID
-router.get('/:id', async (req, res) => {
+// Obter um agendamento específico de um dentista
+router.get('/:agendamentoId', async (req, res) => {
   try {
-    const agendamento = await Agendamento.findById(req.params.id);
+    const { dentistaId, agendamentoId } = req.params;
+
+    const agendamento = await Agendamento.findOne({
+      _id: agendamentoId,
+      id_dentista: dentistaId,
+    });
+      // .populate('id_especialidade')
+      // .populate('id_paciente')
+      // .populate('id_dentista');
+
     if (!agendamento) {
       return res.status(404).json({ message: 'Agendamento não encontrado' });
     }
+
     res.json(agendamento);
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    res.status(400).json({ message: err.message });
   }
 });
 
-// POST - Criar um novo agendamento
+// Criar um novo agendamento para um dentista específico
 router.post('/', async (req, res) => {
-  const { id_especialidade, id_paciente, id_dentista, data } = req.body;
-  const agendamento = new Agendamento({ id_especialidade, id_paciente, id_dentista, data });
-
   try {
-    const novoAgendamento = await agendamento.save();
-    res.status(201).json(novoAgendamento);
+    const { dentistaId } = req.params;
+    const { id_especialidade, id_paciente, data } = req.body;
+
+    const novoAgendamento = new Agendamento({
+      id_especialidade,
+      id_paciente,
+      id_dentista: dentistaId,
+      data
+    });
+
+    const agendamentoSalvo = await novoAgendamento.save();
+    res.status(201).json(agendamentoSalvo);
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
 });
 
-// PUT - Atualizar um agendamento por ID
-router.put('/:id', async (req, res) => {
+// Atualizar um agendamento específico de um dentista
+router.put('/:agendamentoId', async (req, res) => {
   try {
-    const agendamento = await Agendamento.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    const { dentistaId, agendamentoId } = req.params;
+    const { id_especialidade, id_paciente, data } = req.body;
+
+    // TODO: alterar o paciente do agendamento não parece interessante.
+    // Permitir alterar somente o procedimento e a data/hora.
+    const agendamento = await Agendamento.findOneAndUpdate(
+      { _id: agendamentoId, id_dentista: dentistaId },
+      { $set: { id_especialidade, id_paciente, data } },
+      { new: true }
+    );
+
     if (!agendamento) {
       return res.status(404).json({ message: 'Agendamento não encontrado' });
     }
+
     res.json(agendamento);
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
 });
 
-// DELETE - Remover um agendamento por ID
-router.delete('/:id', async (req, res) => {
+// Excluir um agendamento específico de um dentista
+router.delete('/:agendamentoId', async (req, res) => {
   try {
-    const agendamento = await Agendamento.findByIdAndRemove(req.params.id);
+    const { dentistaId, agendamentoId } = req.params;
+
+    const agendamento = await Agendamento.findOneAndDelete({
+      _id: agendamentoId,
+      id_dentista: dentistaId,
+    });
+
     if (!agendamento) {
       return res.status(404).json({ message: 'Agendamento não encontrado' });
     }
-    res.json({ message: 'Agendamento removido' });
+
+    res.json({ message: 'Agendamento excluído com sucesso' });
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    res.status(400).json({ message: err.message });
   }
 });
 
