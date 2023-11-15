@@ -11,6 +11,7 @@ import { useEffect } from 'react';
 function ModalConfirmacao(props) {
     const [show, setShow] = useState(false);
     const [agendamentos, setAgendamentos] = useState([]);
+    const [agendamento, setAgendamento] = useState({});
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -19,15 +20,21 @@ function ModalConfirmacao(props) {
     const idPaciente = props.dados.idPaciente;
     const idDentista = props.dados.idDentista;
 
-    const handleDateClick = async (arg) => { // bind with an arrow function
-        const api = new RestApiService(`http://localhost:8000/dentistas/${idDentista}/agendamentos`);
-        await api.createAsync({
+    const handleDateClick = (arg) => { // bind with an arrow function
+        setAgendamentos([...agendamentos, { title: "ocupado", date: arg.dateStr }]);
+        setAgendamento({
             id_especialidade: idEspecialidade,
             id_paciente: idPaciente,
             id_dentista: idDentista,
             data: arg.dateStr
         });
-        alert(`Agendado para ${arg.dateStr}`);
+    }
+
+    const handleButtonClick = async (arg) => {
+        const api = new RestApiService(`http://localhost:8000/dentistas/${idDentista}/agendamentos`);
+        await api.createAsync(agendamento);
+        alert(`Agendado para ${agendamento.data} com sucesso!`);
+        setShow(false);
     }
 
     useEffect(() => {
@@ -90,7 +97,7 @@ function ModalConfirmacao(props) {
                     />
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="primary" onClick={handleClose}>
+                    <Button variant="primary" onClick={handleButtonClick}>
                         Agendar
                     </Button>
                 </Modal.Footer>
