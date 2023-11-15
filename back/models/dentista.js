@@ -6,7 +6,9 @@ const dentistaSchema = new Schema({
         type: String,
         required: [true, 'Nome é obrigatório'],
     },
-    email: {required: [true, 'E-mail é obrigatório'],
+    email: {
+        type: String,
+        required: [true, 'E-mail é obrigatório'],
     },
     // senha: {
     //     type: String,

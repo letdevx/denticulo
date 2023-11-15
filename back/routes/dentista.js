@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Dentista = require('./dentista.model');
+const Dentista = require('../models/dentista');
 
 // Endpoint para obter todos os dentistas
 router.get('/', async (req, res) => {

@@ -4,7 +4,7 @@ var cors = require('cors');
 require('./database');
 
 var pacienteRouter = require('./routes/paciente');
-var dentistaRouter = require('./routes/paciente');
+var dentistaRouter = require('./routes/dentista');
 var especialidadesRouter = require('./routes/especialidades');
 var agendamentosRouter = require('./routes/agendamento');
 
