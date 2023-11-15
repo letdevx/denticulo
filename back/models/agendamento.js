@@ -6,10 +6,18 @@ const Agendamento = new Schema({
         type: String,
         required: [true, 'id_especialidade é obrigatório'],
     },
-    "id_dentista": "4738294739",
-    "id_paciente": "4738294738",
-    "id_especialidade": "4738294732",
-    "data": "2020-10-10",
+    id_dentista:{
+        type: String,
+        required: [true, 'id_dentista é obrigatório'],
+    },
+    id_paciente :{
+        type: String,
+        required: [true, 'id_paciente é obrigatório'],
+    },
+    data :{
+        type: String,
+        required: [true, 'data é obrigatório'],
+    },
 });
 
 module.exports = mongoose.model('agendamento ', Agendamento);
