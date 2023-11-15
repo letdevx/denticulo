@@ -1,7 +1,10 @@
 import Modal from "react-bootstrap/Modal"
 import { useState } from 'react';
-import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
+import FullCalendar from "@fullcalendar/react";
+import interactionPlugin from "@fullcalendar/interaction";
+import timeGridPlugin from "@fullcalendar/timegrid";
+import brLocale from '@fullcalendar/core/locales/pt-br';
 
 
 function ModalConfirmacao() {
@@ -10,47 +13,63 @@ function ModalConfirmacao() {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
+    const handleDateClick = (arg) => { // bind with an arrow function
+        alert(arg.dateStr);
+    }
+
+    // TODO: consultar do back-end
+    const agendamentos = [
+        { title: "evento 1", date: "2023-11-13T13:00:00" },
+        { title: "evento 2", date: "2023-11-14T09:00:00" },
+    ]
+
     return (
 
         <>
             <Button variant="primary" onClick={handleShow}>
-                Busacar Horário
+                Buscar Horário
             </Button>
 
-            <Modal show={show} onHide={handleClose}>
+            <Modal size="xl" show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title>Modal heading</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <Table striped bordered hover>
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>First Name</th>
-                                <th>Last Name</th>
-                                <th>Username</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>@fat</td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td colSpan={2}>Larry the Bird</td>
-                                <td>@twitter</td>
-                            </tr>
-                        </tbody>
-                    </Table>
+                    <FullCalendar
+                        plugins={[timeGridPlugin, interactionPlugin]}
+                        locale={brLocale}
+                        height="auto"
+                        initialView="timeGridWeek"
+                        slotMinTime="09:00"
+                        slotMaxTime= "18:00"
+                        businessHours= {[
+                            {
+                                // Segunda, Terça, Quarta, Quinta, Sexta
+                                daysOfWeek: [ 1, 2, 3, 4, 5 ],
+                                startTime: '09:00',
+                                endTime: '18:00'
+                            }
+                        ]}
+                        allDaySlot= {false}
+                        eventTimeFormat={{
+                            hour: '2-digit',
+                            minute: '2-digit',
+                            hour12: false
+                        }}
+                        slotLabelFormat={{
+                            hour: 'numeric',
+                            minute: '2-digit',
+                            hour12: false
+                        }}
+                        headerToolbar= {{
+                            left: 'prev,next',
+                            center: 'title',
+                            right: 'timeGridWeek,timeGridDay' // user can switch between the two
+                        }}
+                        weekends={false}
+                        events={agendamentos}
+                        dateClick={handleDateClick}
+                    />
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="primary" onClick={handleClose}>

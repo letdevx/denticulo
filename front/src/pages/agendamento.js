@@ -9,7 +9,7 @@ function Agendamento() {
 
     const [especialidades, setEspecialidades] = useState([]);
     const [idEspecialidade, setIdEspecialidade] = useState("");
-    
+
     const [idPaciente, setIdPaciente] = useContext(PacienteContext);
 
     useEffect(() => {
@@ -19,7 +19,7 @@ function Agendamento() {
             setDentistas(response);
             setIdDentista(response[0]._id);
         }
-        async function getAllEspecialidades(){
+        async function getAllEspecialidades() {
             const api = new RestApiService('http://localhost:8000/especialidades');
             let response = await api.getAllAsync();
             setEspecialidades(response);
@@ -40,8 +40,8 @@ function Agendamento() {
 
     return (
         <>
-            <span>o pacciente é {idPaciente}</span>
-            <div className="col p-5 overflow-auto h-100">
+            <span>o paciente é {idPaciente}</span>
+            <div className="col p-5 overflow-auto">
                 <div className="row">
                     <div className="col-12">
                         <div>
@@ -66,11 +66,11 @@ function Agendamento() {
                         <h2>Escolha seu procedimento:</h2>
                     </div>
                     <select className="form-select" aria-label="Default select example" value={idEspecialidade} onChange={tratarMudancaEspecialidade}>
-                        {especialidades.map((e, i) => (<option key={i} value={e._id}>{e.descricao}</option>))}    
+                        {especialidades.map((e, i) => (<option key={i} value={e._id}>{e.descricao}</option>))}
                     </select>
                     <br></br>
                 </div>
-                
+
                 <ModalConfirmacao/>
             </div>
         </>
