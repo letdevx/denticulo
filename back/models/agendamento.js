@@ -1,23 +1,12 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
 
-const Agendamento = new Schema({
-    id_especialidade: {
-        type: String,
-        required: [true, 'id_especialidade é obrigatório'],
-    },
-    id_dentista:{
-        type: String,
-        required: [true, 'id_dentista é obrigatório'],
-    },
-    id_paciente :{
-        type: String,
-        required: [true, 'id_paciente é obrigatório'],
-    },
-    data :{
-        type: String,
-        required: [true, 'data é obrigatório'],
-    },
+// Definição do Schema do Agendamento
+const agendamentoSchema = new mongoose.Schema({
+  id_especialidade:{ type: mongoose.Schema.Types.ObjectId, ref: 'Especialidade', required: true },
+  id_paciente: { type: mongoose.Schema.Types.ObjectId, ref: 'Paciente', required: true },
+  id_dentista: { type: mongoose.Schema.Types.ObjectId, ref: 'Dentista', required: true },
+  data: { type: Date, required: true }
 });
 
-module.exports = mongoose.model('agendamento ', Agendamento);
+// Criar o modelo Agendamento a partir do Schema
+module.exports = mongoose.model('Agendamento', agendamentoSchema);
