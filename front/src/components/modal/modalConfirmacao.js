@@ -19,9 +19,15 @@ function ModalConfirmacao(props) {
     const idPaciente = props.dados.idPaciente;
     const idDentista = props.dados.idDentista;
 
-    const handleDateClick = (arg) => { // bind with an arrow function
-        alert(arg.dateStr);
-        // TODO: confirmar agendamento e salvar
+    const handleDateClick = async (arg) => { // bind with an arrow function
+        const api = new RestApiService(`http://localhost:8000/dentistas/${idDentista}/agendamentos`);
+        await api.createAsync({
+            id_especialidade: idEspecialidade,
+            id_paciente: idPaciente,
+            id_dentista: idDentista,
+            data: arg.dateStr
+        });
+        alert(`Agendado para ${arg.dateStr}`);
     }
 
     useEffect(() => {
