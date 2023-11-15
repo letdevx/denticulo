@@ -3,7 +3,8 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Dente from "../assets/gravura.png";
 import RestApiService from '../services/restApiService';
-import PacienteContext from '../contexts/pacienteContext';
+import { PacienteContext } from '../Contexts';
+import { useNavigate } from "react-router-dom";
 
 import "./cadastro.css";
 
@@ -11,6 +12,7 @@ const Cadastro = () => {
     const api = new RestApiService('http://localhost:8000/pacientes');
     const [inputs, setInputs] = useState({});
     const [idPaciente, setIdPaciente] = useContext(PacienteContext);
+    const navigate = useNavigate();
 
     const handleChange = (event) => {
         const name = event.target.name;
@@ -22,7 +24,7 @@ const Cadastro = () => {
         event.preventDefault();
         setIdPaciente(inputs._id);
         await api.updateAsync(inputs._id, inputs);
-        alert(`Muito bem ${inputs.nome}`);
+        navigate("agendamento");
     }
 
     return (

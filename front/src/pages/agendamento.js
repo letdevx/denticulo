@@ -1,7 +1,7 @@
 import ModalConfirmacao from '../components/modal/modalConfirmacao';
 import { useState, useEffect, useContext } from 'react';
 import RestApiService from '../services/restApiService';
-import PacienteContext from '../contexts/pacienteContext';
+import { PacienteContext } from '../Contexts';
 
 function Agendamento() {
     const [dentistas, setDentistas] = useState([]);

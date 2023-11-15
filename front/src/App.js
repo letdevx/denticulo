@@ -6,7 +6,7 @@ import Cadastro from './pages/cadastro';
 import Confirmacao from './pages/confirmacao';
 import Painel from './pages/painel';
 import CadastroHorario from './pages/cadastroHorario';
-import PacienteContext from './contexts/pacienteContext';
+import { PacienteContext } from './Contexts';
 import { useState } from 'react';
 
 function App() {
