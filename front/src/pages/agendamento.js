@@ -12,6 +12,9 @@ function Agendamento() {
 
     const [idPaciente, setIdPaciente] = useContext(PacienteContext);
 
+    // if (idPaciente === null || idPaciente === "")
+    //     throw new Error("Agendamento - idPaciente não encontrado.");
+
     useEffect(() => {
         async function getAllDentistas() {
             const api = new RestApiService('http://localhost:8000/dentistas');
@@ -71,7 +74,7 @@ function Agendamento() {
                     <br></br>
                 </div>
 
-                <ModalConfirmacao/>
+                <ModalConfirmacao dados={{ idEspecialidade, idDentista, idPaciente }}/>
             </div>
         </>
     );

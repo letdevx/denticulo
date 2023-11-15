@@ -5,26 +5,38 @@ import FullCalendar from "@fullcalendar/react";
 import interactionPlugin from "@fullcalendar/interaction";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import brLocale from '@fullcalendar/core/locales/pt-br';
+import RestApiService from "../../services/restApiService";
+import { useEffect } from 'react';
 
-
-function ModalConfirmacao() {
+function ModalConfirmacao(props) {
     const [show, setShow] = useState(false);
+    const [agendamentos, setAgendamentos] = useState([]);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
+    const idEspecialidade = props.dados.idEspecialidade;
+    const idPaciente = props.dados.idPaciente;
+    const idDentista = props.dados.idDentista;
+
     const handleDateClick = (arg) => { // bind with an arrow function
         alert(arg.dateStr);
+        // TODO: confirmar agendamento e salvar
     }
 
-    // TODO: consultar do back-end
-    const agendamentos = [
-        { title: "evento 1", date: "2023-11-13T13:00:00" },
-        { title: "evento 2", date: "2023-11-14T09:00:00" },
-    ]
+    useEffect(() => {
+        async function getAllAgendamentos() {
+            if (idDentista === null || idDentista === "")
+                return;
+            const api = new RestApiService(`http://localhost:8000/dentistas/${idDentista}/agendamentos`);
+            let response = await api.getAllAsync();
+            let eventos = response.map((e,i) => ({ title: "ocupado", date: e.data }));
+            setAgendamentos(eventos);
+        }
+        getAllAgendamentos();
+    }, [ idDentista ]);
 
     return (
-
         <>
             <Button variant="primary" onClick={handleShow}>
                 Buscar Horário
@@ -32,7 +44,7 @@ function ModalConfirmacao() {
 
             <Modal size="xl" show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Modal heading</Modal.Title>
+                    <Modal.Title>Horários Disponíveis</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <FullCalendar
@@ -77,8 +89,8 @@ function ModalConfirmacao() {
                     </Button>
                 </Modal.Footer>
             </Modal>
-
         </>
     );
 }
+
 export default ModalConfirmacao;
