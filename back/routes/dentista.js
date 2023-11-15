@@ -30,7 +30,7 @@ router.get('/:id', async (req, res) => {
 router.post('/', async (req, res) => {
   const dentista = new Dentista({
     nome: req.body.nome,
-    email: req.email,
+    email: req.body.email,
     // Outros campos do dentista
   });
 
