@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const colaborador = new Schema({
+const dentistaSchema = new Schema({
     nome: {
         type: String,
         required: [true, 'Nome é obrigatório'],
@@ -35,4 +35,4 @@ const colaborador = new Schema({
 
 }); 
 
-module.exports = mongoose.model('colaborador ', colaborador);
+module.exports = mongoose.model('Dentista ', dentistaSchema);

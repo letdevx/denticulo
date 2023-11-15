@@ -1,5 +1,5 @@
 const express = require('express');
-const router = express.Router();
+const router = express.Router({ mergeParams: true });
 const Agendamento = require('../models/agendamento'); // Importando o modelo de Agendamento
 
 // Obtém todos os agendamentos de um dentista específico
@@ -63,13 +63,13 @@ router.post('/', async (req, res) => {
 router.put('/:agendamentoId', async (req, res) => {
   try {
     const { dentistaId, agendamentoId } = req.params;
-    const { id_especialidade, id_paciente, data } = req.body;
+    const { id_especialidade, data } = req.body;
 
     // TODO: alterar o paciente do agendamento não parece interessante.
     // Permitir alterar somente o procedimento e a data/hora.
     const agendamento = await Agendamento.findOneAndUpdate(
       { _id: agendamentoId, id_dentista: dentistaId },
-      { $set: { id_especialidade, id_paciente, data } },
+      { $set: { id_especialidade, data } },
       { new: true }
     );
 

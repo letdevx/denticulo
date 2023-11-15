@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const Paciente = new Schema({
+const pacienteSchema = new Schema({
     _id: {
         type: String,
         required: [true, 'Id é obrigatório'],
@@ -20,4 +20,4 @@ const Paciente = new Schema({
     }
 });
 
-module.exports = mongoose.model('paciente', Paciente);     
+module.exports = mongoose.model('Paciente', pacienteSchema);     
