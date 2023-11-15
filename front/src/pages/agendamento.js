@@ -1,6 +1,7 @@
 import ModalConfirmacao from '../components/modal/modalConfirmacao';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import RestApiService from '../services/restApiService';
+import PacienteContext from '../contexts/pacienteContext';
 
 function Agendamento() {
     const [dentistas, setDentistas] = useState([]);
@@ -9,6 +10,8 @@ function Agendamento() {
     const [especialidades, setEspecialidades] = useState([]);
     const [idEspecialidade, setIdEspecialidade] = useState("");
     
+    const [idPaciente, setIdPaciente] = useContext(PacienteContext);
+
     useEffect(() => {
         async function getAllDentistas() {
             const api = new RestApiService('http://localhost:8000/dentistas');
@@ -37,6 +40,7 @@ function Agendamento() {
 
     return (
         <>
+            <span>o pacciente é {idPaciente}</span>
             <div className="col p-5 overflow-auto h-100">
                 <div className="row">
                     <div className="col-12">

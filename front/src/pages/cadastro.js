@@ -1,13 +1,16 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Dente from "../assets/gravura.png";
 import RestApiService from '../services/restApiService';
+import PacienteContext from '../contexts/pacienteContext';
+
 import "./cadastro.css";
 
 const Cadastro = () => {
     const api = new RestApiService('http://localhost:8000/pacientes');
     const [inputs, setInputs] = useState({});
+    const [idPaciente, setIdPaciente] = useContext(PacienteContext);
 
     const handleChange = (event) => {
         const name = event.target.name;
@@ -17,6 +20,7 @@ const Cadastro = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        setIdPaciente(inputs._id);
         await api.updateAsync(inputs._id, inputs);
         alert(`Muito bem ${inputs.nome}`);
     }
