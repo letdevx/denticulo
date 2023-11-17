@@ -1,4 +1,4 @@
-const URI = 'mongodb+srv://leticiasistemasads:Devx@cluster0.ujechls.mongodb.net/agendador?retryWrites=true&w=majority'; 
+const URI = 'mongodb+srv://leticiasistemasads:Devx@cluster0.rrh7i0u.mongodb.net/agendador?retryWrites=true&w=majority';
 const mongoose = require('mongoose');
 
 mongoose.connect(URI);
