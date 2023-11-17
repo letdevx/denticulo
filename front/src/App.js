@@ -12,8 +12,8 @@ import { useState } from 'react';
 function App() {
   const [idPaciente, setIdPaciente] = useState("");
   let teste;
-
-  if (true) {
+  
+  if (idPaciente !== "") {
     teste = <AppHeader />;
   }
   else {

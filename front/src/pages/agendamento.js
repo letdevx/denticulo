@@ -44,7 +44,7 @@ function Agendamento() {
     return (
         <>
             <span>o paciente é {idPaciente}</span>
-            <div className="col p-5 overflow-auto">
+            <div className="col p-5 overflow-auto h-1000">
                 <div className="row">
                     <div className="col-12">
                         <div>
@@ -71,9 +71,10 @@ function Agendamento() {
                     <select className="form-select" aria-label="Default select example" value={idEspecialidade} onChange={tratarMudancaEspecialidade}>
                         {especialidades.map((e, i) => (<option key={i} value={e._id}>{e.descricao}</option>))}
                     </select>
-                    <br></br>
+                    
                 </div>
-
+                <br></br>
+                
                 <ModalConfirmacao dados={{ idEspecialidade, idDentista, idPaciente }}/>
             </div>
         </>
