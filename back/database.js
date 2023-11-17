@@ -1,7 +1,7 @@
-const URI = 'mongodb+srv://leticiasistemasads:Devx@cluster0.rrh7i0u.mongodb.net/agendador?retryWrites=true&w=majority';
+require('dotenv').config();
 const mongoose = require('mongoose');
 
-mongoose.connect(URI);
+mongoose.connect(process.env.DB_CONNECTION_STRING);
 
 const db = mongoose.connection;
 
